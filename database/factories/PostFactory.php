@@ -19,10 +19,16 @@ class PostFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             //
+            'created_at' => $this->faker->date('Y-m-d H:i:s', 'now'),
+            'updated_at' => $this->faker->date('Y-m-d H:i:s', 'now'),
+            'subject' => $this->faker->realText(16),    // 16文字のテキスト
+            'message' => $this->faker->realText(200),    // 200文字のテキスト
+            'name' => $this->faker->name,    // 氏名
+            'category_id' => $this->faker->numberBetween(1,5),    // 1〜5のランダムな整数
         ];
     }
 }
