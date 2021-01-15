@@ -56,4 +56,33 @@ class PostsController extends Controller
 	    return redirect('/bbs')->with('poststatus', '新規投稿しました');
 	}
 
+	/**
+	 * 編集画面
+	 */
+	public function edit($post_id)
+	{
+	    $post = Post::findOrFail($post_id);
+	    return view('bbs.edit', ['post' => $post]);
+	}
+ 
+ 
+	/**
+	 * 編集実行
+	 */
+	public function update($post_id, PostRequest $request)
+	{
+	    $savedata = [
+	        'name' => $request->name,
+	        'subject' => $request->subject,
+	        'message' => $request->message,
+	        'category_id' => $request->category_id,
+	    ];
+	 
+	    //$post = new Post;
+	    $post = Post::findOrFail($post_id);
+	    $post->fill($savedata)->save();
+	 
+	    return redirect('/bbs')->with('poststatus', '投稿を編集しました');
+	}
+
 }

@@ -20,7 +20,6 @@ Route::get('/', function () {
 //Route::get('bbs', 'PostsController@index');
 //Route::get('bbs', '\App\Http\Controllers\PostsController@index');
 
-//Route::resource('bbs', 'PostsController', ['only' => ['index', 'show']]);
-Route::resource('bbs', 'PostsController', ['only' => ['index', 'show', 'create', 'store']]);
+Route::resource('bbs', 'PostsController', ['only' => ['index', 'show', 'create', 'store', 'edit', 'update']]);
 
 Route::resource('comment', 'CommentsController', ['only' => ['store']]);
