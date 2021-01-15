@@ -17,5 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('bbs', 'PostsController@index');
+//Route::get('bbs', 'PostsController@index');
 //Route::get('bbs', '\App\Http\Controllers\PostsController@index');
+
+Route::resource('bbs', 'PostsController', ['only' => ['index', 'show']]);
