@@ -49,6 +49,11 @@
         </section>
     </div>
 </div>
+<div class="mt-4 mb-4">
+    <a href="{{ route('bbs.index') }}" class="btn btn-info">
+        一覧に戻る
+    </a>
+</div>
 @endsection
  
 @include('layout.bbsfooter')

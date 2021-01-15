@@ -8,6 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+    
+    // 割り当て許可
+    protected $fillable = [
+        'name',
+        'subject',
+        'message', 
+        'category_id'
+    ];
+
     /**
      * 
      */

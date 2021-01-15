@@ -20,4 +20,5 @@ Route::get('/', function () {
 //Route::get('bbs', 'PostsController@index');
 //Route::get('bbs', '\App\Http\Controllers\PostsController@index');
 
-Route::resource('bbs', 'PostsController', ['only' => ['index', 'show']]);
+//Route::resource('bbs', 'PostsController', ['only' => ['index', 'show']]);
+Route::resource('bbs', 'PostsController', ['only' => ['index', 'show', 'create', 'store']]);
