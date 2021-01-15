@@ -22,3 +22,5 @@ Route::get('/', function () {
 
 //Route::resource('bbs', 'PostsController', ['only' => ['index', 'show']]);
 Route::resource('bbs', 'PostsController', ['only' => ['index', 'show', 'create', 'store']]);
+
+Route::resource('comment', 'CommentsController', ['only' => ['store']]);
