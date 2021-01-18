@@ -20,6 +20,17 @@
         {{ session('poststatus') }}
     </div>
 @endif
+
+<div class="mt-4 mb-4">
+    <p>{{ $posts->total() }}件が見つかりました。</p>
+</div>
+ 
+<div class="mt-4 mb-4">
+    @foreach($categories as $id => $name)
+    <span class="btn"><a href="{{ route('bbs.index', ['category_id'=>$id]) }}" title="{{ $name }}">{{ $name }}</a></span>
+    @endforeach
+</div>
+
 <div class="table-responsive">
     <table class="table table-hover">
         <thead>
@@ -63,7 +74,7 @@
     </table>
 </div>
 <div class="d-flex justify-content-center mb-5">
-    {{ $posts->links() }}
+    {{ $posts->appends(['category_id' => $category_id])->links() }}
 </div>
 @endsection
  
