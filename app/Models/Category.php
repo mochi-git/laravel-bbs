@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+    
     /**
      * 
      */
@@ -16,4 +17,14 @@ class Category extends Model
         // カテゴリは複数のポストを持つ
         return $this->hasMany('App\Models\Post');
     }
+
+    /**
+	 * カテゴリーの一覧を取得
+	 */
+	public function getLists()
+	{
+	    $categories = Category::orderBy('id','asc')->pluck('name', 'id');
+	 
+	    return $categories;
+	}
 }

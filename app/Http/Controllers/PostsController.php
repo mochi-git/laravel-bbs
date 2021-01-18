@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Post; // ←★忘れず追記
+use App\Models\Post, App\Models\Category;  // 「Category」を追記
 use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
@@ -34,7 +34,10 @@ class PostsController extends Controller
 	 */
 	public function create()
 	{
-	 	return view('bbs.create');
+	    $category = new Category;
+	    $categories = $category->getLists()->prepend('選択', '');
+	 
+	    return view('bbs.create', ['categories' => $categories]);
 	}
 	 
 	 
@@ -61,8 +64,12 @@ class PostsController extends Controller
 	 */
 	public function edit($post_id)
 	{
+
+	    $category = new Category;
+	    $categories = $category->getLists();
+
 	    $post = Post::findOrFail($post_id);
-	    return view('bbs.edit', ['post' => $post]);
+    	return view('bbs.edit', ['post' => $post, 'categories' => $categories]);
 	}
  
  
