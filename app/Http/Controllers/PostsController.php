@@ -17,16 +17,19 @@ class PostsController extends Controller
 	    $category = new Category;
 	    $categories = $category->getLists();
 	 
-	    $category_id = $request->category_id;
-	    $posts = Post::with('comments', 'category')        // ←★これ
+		$category_id = $request->category_id;
+		$searchword = $request->searchword;
+	    $posts = Post::with('comments', 'category')
 		->orderBy('created_at', 'desc')
 		->categoryAt($category_id)
+		->fuzzyName($searchword)
 		->paginate(10);
 	 
 	    return view('bbs.index', [
 	        'posts' => $posts, 
 	        'categories' => $categories, 
-	        'category_id'=>$category_id
+			'category_id'=>$category_id,
+			'searchword' => $searchword
 	    ]);
 	}
 

@@ -48,4 +48,15 @@ class Post extends Model
         return $query->where('category_id', $category_id);
     }
 
+    /**
+     * 「名前」検索スコープ
+     */
+    public function scopeFuzzyName($query, $searchword)
+    {
+        if (empty($searchword)) {
+            return;
+        }
+        return $query->where('name', 'like', "%{$searchword}%");
+    }
+
 }

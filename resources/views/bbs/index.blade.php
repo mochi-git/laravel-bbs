@@ -21,6 +21,16 @@
     </div>
 @endif
 
+<!-- 検索フォーム -->
+<div class="mt-4 mb-4">
+    <form class="form-inline" method="GET" action="{{ route('bbs.index') }}">
+        <div class="form-group">
+            <input type="text" name="searchword" value="{{$searchword}}" class="form-control" placeholder="名前を入力してください">
+        </div>
+        <input type="submit" value="検索" class="btn btn-info ml-2">
+    </form>
+</div>
+
 <div class="mt-4 mb-4">
     <p>{{ $posts->total() }}件が見つかりました。</p>
 </div>
@@ -74,7 +84,10 @@
     </table>
 </div>
 <div class="d-flex justify-content-center mb-5">
-    {{ $posts->appends(['category_id' => $category_id])->links() }}
+    {{ $posts->appends([
+    'category_id' => $category_id,
+    'searchword' => $searchword
+    ])->links() }}
 </div>
 @endsection
  
