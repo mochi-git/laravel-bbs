@@ -18,15 +18,10 @@ class PostsController extends Controller
 	    $categories = $category->getLists();
 	 
 	    $category_id = $request->category_id;
-	    // if (!is_null($category_id)) {
-	    //     $posts = Post::where('category_id', $category_id)->orderBy('created_at', 'desc')->paginate(10);
-	    // } else {
-	    //     $posts = Post::orderBy('created_at', 'desc')->paginate(10);
-	    // }
-	    // scopeを利用した検索
-		$posts = Post::orderBy('created_at', 'desc')
-		 ->categoryAt($category_id) // ←★これ
-		 ->paginate(10);
+	    $posts = Post::with('comments', 'category')        // ←★これ
+		->orderBy('created_at', 'desc')
+		->categoryAt($category_id)
+		->paginate(10);
 	 
 	    return view('bbs.index', [
 	        'posts' => $posts, 
