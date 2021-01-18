@@ -22,7 +22,7 @@ class PostsController extends Controller
 	    $posts = Post::with('comments', 'category')
 		->orderBy('created_at', 'desc')
 		->categoryAt($category_id)
-		->fuzzyName($searchword)
+		->fuzzyNameMessage($searchword)
 		->paginate(10);
 	 
 	    return view('bbs.index', [

@@ -59,4 +59,19 @@ class Post extends Model
         return $query->where('name', 'like', "%{$searchword}%");
     }
 
+    /**
+     * 「名前・本文」検索スコープ
+     */
+    public function scopeFuzzyNameMessage($query, $searchword)
+    {
+        if (empty($searchword)) {
+            return;
+        }
+    
+        return $query->where(function ($query) use($searchword) {
+            $query->orWhere('name', 'like', "%{$searchword}%")
+                ->orWhere('message', 'like', "%{$searchword}%");
+        });
+    }
+
 }
