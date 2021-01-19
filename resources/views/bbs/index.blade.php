@@ -10,6 +10,14 @@
 @include('layout.bbsheader')
  
 @section('content')
+
+@if (Auth::check())
+<p>USER: {{$user->name . ' (' . $user->email . ')'}}</p>
+@else
+<p>※ログインしていません。（<a href="/login">ログイン</a>｜
+   <a href="/register">登録</a>）</p>
+@endif
+
 <div class="mt-4 mb-4">
     <a href="{{ route('bbs.create') }}" class="btn btn-primary">
         投稿の新規作成

@@ -20,6 +20,12 @@ Route::get('/', function () {
 //Route::get('bbs', 'PostsController@index');
 //Route::get('bbs', '\App\Http\Controllers\PostsController@index');
 
-Route::resource('bbs', 'PostsController', ['only' => ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']]);
+Route::resource('bbs', 'PostsController', ['only' => ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']])
+->middleware('auth')
+;
 
 Route::resource('comment', 'CommentsController', ['only' => ['store']]);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

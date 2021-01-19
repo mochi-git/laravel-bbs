@@ -13,6 +13,8 @@ class PostsController extends Controller
 	 */
 	public function index(Request $request)
 	{
+		$user = $request->user();
+
 	    // カテゴリ取得
 	    $category = new Category;
 	    $categories = $category->getLists();
@@ -29,7 +31,8 @@ class PostsController extends Controller
 	        'posts' => $posts, 
 	        'categories' => $categories, 
 			'category_id'=>$category_id,
-			'searchword' => $searchword
+			'searchword' => $searchword,
+			'user' => $user
 	    ]);
 	}
 
