@@ -21,17 +21,20 @@ class PostsController extends Controller
 	 
 		$category_id = $request->category_id;
 		$searchword = $request->searchword;
+		$sort = $request->sort;
 	    $posts = Post::with('comments', 'category')
 		->orderBy('created_at', 'desc')
+		->orderBy($sort, 'asc')
 		->categoryAt($category_id)
 		->fuzzyNameMessage($searchword)
-		->paginate(10);
+		->paginate(5);
 	 
 	    return view('bbs.index', [
 	        'posts' => $posts, 
 	        'categories' => $categories, 
 			'category_id'=>$category_id,
 			'searchword' => $searchword,
+			'sort' => $sort,
 			'user' => $user
 	    ]);
 	}

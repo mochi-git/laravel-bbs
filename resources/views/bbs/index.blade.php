@@ -55,9 +55,9 @@
     <table class="table table-hover">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>カテゴリ</th>
-            <th>作成日時</th>
+            <th><a href="/bbs?sort=id">ID</a></th>
+            <th><a href="/bbs?sort=category_id">カテゴリ</a></th>
+            <th><a href="/bbs?sort=created_at">作成日時</a></th>
             <th>名前</th>
             <th>件名</th>
             <th>メッセージ</th>
@@ -96,6 +96,7 @@
 <div class="d-flex justify-content-center mb-5">
     {{ $posts->appends([
     'category_id' => $category_id,
+    'sort' => $sort,
     'searchword' => $searchword
     ])->links() }}
 </div>
