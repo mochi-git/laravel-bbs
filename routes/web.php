@@ -13,15 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', '/bbs');
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 //Route::get('bbs', 'PostsController@index');
 //Route::get('bbs', '\App\Http\Controllers\PostsController@index');
 
-Route::resource('bbs', 'PostsController', ['only' => ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']])
-->middleware('auth')
+Route::resource('bbs', 'PostsController', ['only' => [
+    'index', 'show', 'create', 'store', 'edit', 'update', 'destroy'
+    ]])
+    // ->middleware('auth')
 ;
 
 Route::resource('comment', 'CommentsController', ['only' => ['store']]);

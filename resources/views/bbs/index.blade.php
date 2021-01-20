@@ -11,12 +11,14 @@
  
 @section('content')
 
+<div class="mt-4 mb-4">
 @if (Auth::check())
-<p>USER: {{$user->name . ' (' . $user->email . ')'}}</p>
+<p>USER: {{$user->name . ' (' . $user->email . ')'}}（<a href="/home">マイページ</a>）</p>
 @else
 <p>※ログインしていません。（<a href="/login">ログイン</a>｜
    <a href="/register">登録</a>）</p>
 @endif
+</div>
 
 <div class="mt-4 mb-4">
     <a href="{{ route('bbs.create') }}" class="btn btn-primary">
