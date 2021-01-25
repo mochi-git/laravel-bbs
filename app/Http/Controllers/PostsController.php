@@ -24,10 +24,10 @@ class PostsController extends Controller
 		$sort = $request->sort;
 	    $posts = Post::with('comments', 'category')
 		->orderBy('created_at', 'desc')
-		->orderBy($sort, 'asc')
+		// ->orderBy($sort, 'asc')
 		->categoryAt($category_id)
 		->fuzzyNameMessage($searchword)
-		->paginate(5);
+		->paginate(3);
 	 
 	    return view('bbs.index', [
 	        'posts' => $posts, 

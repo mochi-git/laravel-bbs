@@ -51,42 +51,47 @@
     @endforeach
 </div>
 
-<div class="table-responsive">
-    <table class="table table-hover">
-        <thead>
+<div class="table-responsive-md">
+    <table class="table table-hover table-dark">
+        <!-- <thead>
         <tr>
             <th><a href="/bbs?sort=id">ID</a></th>
             <th><a href="/bbs?sort=category_id">カテゴリ</a></th>
-            <th><a href="/bbs?sort=created_at">作成日時</a></th>
-            <th>名前</th>
+            <th><a href="/bbs?sort=created_at">作成日時</a></th> -->
+            <!-- <th>名前</th>
             <th>件名</th>
             <th>メッセージ</th>
-            <th>処理</th>
-        </tr>
-        </thead>
+            <th>処理</th> -->
+        <!-- </tr>
+        </thead> -->
         <tbody id="tbl">
         @foreach ($posts as $post)
-            <tr>
-                <td>{{ $post->id }}</td>
-                <td>{{ optional($post->category)->name }}</td>
-                <td>{{ $post->created_at->format('Y.m.d') }}</td>
-                <td>{{ $post->name }}</td>
-                <td>{{ $post->subject }}</td>
+            <tr>                
+                <td>[{{ $post->id }}] {{ $post->created_at->format('Y.m.d') }} 名前：{{ $post->name }}</td>
+                
+            </tr>
+            <tr>      
+                <td>[{{ optional($post->category)->name }}] 件名：{{ $post->subject }}</td>
+            </tr>
+            <tr>   
                 <td>{!! nl2br(e(Str::limit($post->message, 100))) !!}
                 @if ($post->comments->count() >= 1)
                     <p><span class="badge badge-primary">コメント：{{ $post->comments->count() }}件</span></p>
+                @else
+                    <p>&nbsp;</p>
                 @endif
-                </td>
-                <td class="text-nowrap">
-                    <p><a href="{{ action('PostsController@show', $post->id) }}" class="btn btn-primary btn-sm">詳細</a></p>
-                    <p><a href="{{ action('PostsController@edit', $post->id) }}" class="btn btn-info btn-sm">編集</a></p>
-                    <p>
-                        <form method="POST" action="{{ action('PostsController@destroy', $post->id) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger btn-sm">削除</button>
-                        </form>
-                    </p>
+                
+                    <div style="display:inline-flex">
+                        <p><a href="{{ action('PostsController@show', $post->id) }}" class="btn btn-primary btn-sm">詳細</a>
+                        <a href="{{ action('PostsController@edit', $post->id) }}" class="btn btn-info btn-sm">編集</a>
+                        
+                            <form method="POST" action="{{ action('PostsController@destroy', $post->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger btn-sm">削除</button>
+                            </form>
+                        </p>
+                    </div>
                 </td>
             </tr>
         @endforeach
