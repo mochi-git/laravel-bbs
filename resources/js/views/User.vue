@@ -20,8 +20,6 @@
       </tr>
     </table>
 
-    <hr />
-
     <ul>
       <li v-for="(user, index) in users" v-bind:key="user.id" class="mb-1">
         {{ user.name }}
