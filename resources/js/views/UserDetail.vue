@@ -7,6 +7,9 @@
         <li>User Name: {{ user.name }}</li>
         <li>User Email: {{ user.email }}</li>
       </ul>
+
+    <router-link class="btn btn-success" :to="`/user`">戻る</router-link>
+      <span class="btn btn-danger" @click="userDelete(user.id)">削除</span>
     </div>
   </div>
 </template>
@@ -18,6 +21,16 @@ export default {
       id: this.$route.params.id,
       user: "",
     };
+  },
+  methods: {
+    userDelete(id) {
+      axios
+        .delete("/user/" + id)
+        .then((response) => {
+          this.users.slice(id, 1);
+        })
+        .catch((error) => console.log(error));
+    },
   },
   created() {
     axios

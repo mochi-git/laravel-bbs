@@ -40,7 +40,7 @@ export default new Router({
       component: UserEdit
     },
     {
-      path: '/user/created',
+      path: '/create',
       name: 'user_create',
       component: UserCreate
     },

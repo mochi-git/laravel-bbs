@@ -1910,11 +1910,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
+    // keyword: '',
     return {
-      users: []
+      users: [],
+      keyword: ''
     };
+  },
+  computed: {
+    filteredUsers: function filteredUsers() {
+      var users = [];
+
+      for (var i in this.users) {
+        var user = this.users[i];
+
+        if (user.name.indexOf(this.keyword) !== -1) {
+          users.push(user);
+        }
+      }
+
+      return users;
+    }
   },
   methods: {
     userDelete: function userDelete(index, id) {
@@ -2029,6 +2055,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2036,11 +2065,22 @@ __webpack_require__.r(__webpack_exports__);
       user: ""
     };
   },
+  methods: {
+    userDelete: function userDelete(id) {
+      var _this = this;
+
+      axios["delete"]("/user/" + id).then(function (response) {
+        _this.users.slice(id, 1);
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    }
+  },
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
     axios.get("/user/" + this.id).then(function (response) {
-      return _this.user = response.data.user;
+      return _this2.user = response.data.user;
     })["catch"](function (erorr) {
       return console.log(error);
     });
@@ -2268,7 +2308,7 @@ __webpack_require__.r(__webpack_exports__);
     name: 'user_edit',
     component: _views_UserEdit_vue__WEBPACK_IMPORTED_MODULE_5__.default
   }, {
-    path: '/user/create',
+    path: '/create',
     name: 'user_create',
     component: _views_UserCreate_vue__WEBPACK_IMPORTED_MODULE_6__.default
   }]
@@ -38256,8 +38296,43 @@ var render = function() {
       _vm._v(" "),
       _c(
         "router-link",
-        { staticClass: "btn btn-success", attrs: { to: "/user/create" } },
+        { staticClass: "btn btn-success", attrs: { to: "/create" } },
         [_vm._v("作成")]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.keyword,
+            expression: "keyword"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.keyword },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.keyword = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "table",
+        _vm._l(_vm.filteredUsers, function(user) {
+          return _c("tr", { key: user.id }, [
+            _c("td", { domProps: { textContent: _vm._s(user.id) } }),
+            _vm._v(" "),
+            _c("td", { domProps: { textContent: _vm._s(user.name) } }),
+            _vm._v(" "),
+            _c("td", { domProps: { textContent: _vm._s(user.email) } })
+          ])
+        }),
+        0
       ),
       _vm._v(" "),
       _c(
@@ -38449,17 +38524,40 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", [
-      _c("h1", [_vm._v("ユーザ詳細")]),
-      _vm._v(" "),
-      _c("ul", [
-        _c("li", [_vm._v("User Id: " + _vm._s(_vm.user.id))]),
+    _c(
+      "div",
+      [
+        _c("h1", [_vm._v("ユーザ詳細")]),
         _vm._v(" "),
-        _c("li", [_vm._v("User Name: " + _vm._s(_vm.user.name))]),
+        _c("ul", [
+          _c("li", [_vm._v("User Id: " + _vm._s(_vm.user.id))]),
+          _vm._v(" "),
+          _c("li", [_vm._v("User Name: " + _vm._s(_vm.user.name))]),
+          _vm._v(" "),
+          _c("li", [_vm._v("User Email: " + _vm._s(_vm.user.email))])
+        ]),
         _vm._v(" "),
-        _c("li", [_vm._v("User Email: " + _vm._s(_vm.user.email))])
-      ])
-    ])
+        _c(
+          "router-link",
+          { staticClass: "btn btn-success", attrs: { to: "/user" } },
+          [_vm._v("戻る")]
+        ),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            staticClass: "btn btn-danger",
+            on: {
+              click: function($event) {
+                return _vm.userDelete(_vm.user.id)
+              }
+            }
+          },
+          [_vm._v("削除")]
+        )
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []

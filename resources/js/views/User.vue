@@ -9,7 +9,18 @@
       </li>
     </ul> -->
 
-    <router-link class="btn btn-success" :to="`/user/created`">作成</router-link>
+    <router-link class="btn btn-success" :to="`/create`">作成</router-link>
+
+    <input type="text" v-model="keyword" />
+    <table>
+      <tr v-for="user in filteredUsers" :key="user.id">
+        <td v-text="user.id"></td>
+        <td v-text="user.name"></td>
+        <td v-text="user.email"></td>
+      </tr>
+    </table>
+
+    <hr />
 
     <ul>
       <li v-for="(user, index) in users" v-bind:key="user.id" class="mb-1">
@@ -31,9 +42,26 @@
 <script>
 export default {
   data() {
+    // keyword: '',
     return {
       users: [],
+      keyword: '',
     };
+  },
+  computed: {
+    filteredUsers: function () {
+      var users = [];
+
+      for (var i in this.users) {
+        var user = this.users[i];
+
+        if (user.name.indexOf(this.keyword) !== -1) {
+          users.push(user);
+        }
+      }
+
+      return users;
+    },
   },
   methods: {
     userDelete(index, id) {
